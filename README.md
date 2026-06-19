@@ -15,7 +15,7 @@ codexapp is built from [fork repository](https://github.com/selim13/codex-mobile
 ```yaml
 services:
   codex:
-    image: ghcr.io/selim13/codex-mobile:main
+    image: ghcr.io/selim13/codex-mobile:latest
     ports:
       - "18923:18923"
     volumes:
