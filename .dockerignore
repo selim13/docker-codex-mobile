@@ -1,0 +1,8 @@
+codex-home/
+node_modules/
+.git/
+.cache/
+.env
+.env.*
+!.env.example
+*.log

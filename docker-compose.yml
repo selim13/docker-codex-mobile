@@ -1,0 +1,19 @@
+services:
+  codex:
+    build:
+      context: .
+      args:
+        CODEX_MOBILE_REPO: https://github.com/selim13/codex-mobile.git
+        CODEX_MOBILE_REF: ru/translate
+    image: codex-mobile-env:local
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "18923:18923"
+    volumes:
+      - ./codex-home:/home/codex
+    environment:
+      CODEX_HOME: /home/codex/.codex
+      HTTP_PROXY: "${HTTP_PROXY:-}"
+      HTTPS_PROXY: "${HTTPS_PROXY:-}"
+      NO_PROXY: "${NO_PROXY:-}"

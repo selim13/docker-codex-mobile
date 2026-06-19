@@ -1,0 +1,8 @@
+{
+  "name": "docker-codex-mobile",
+  "private": true,
+  "license": "MIT",
+  "dependencies": {
+    "@openai/codex": "0.141.0"
+  }
+}
