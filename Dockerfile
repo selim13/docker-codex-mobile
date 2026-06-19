@@ -92,6 +92,7 @@ RUN apt-get update \
 
 COPY --from=uv /uv /uvx /usr/local/bin/
 COPY --from=codexapp-builder /tmp/codexapp-*.tgz /tmp/codexapp.tgz
+COPY --chmod=0755 docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 COPY package.json package-lock.json /opt/codex-npm/
 
 RUN npm ci --omit=dev --prefix /opt/codex-npm \
@@ -112,5 +113,5 @@ ENV HOME=/home/codex \
 USER codex
 WORKDIR /home/codex
 
-ENTRYPOINT ["tini", "--"]
-CMD ["codexapp", "--no-tunnel", "--no-open", "--port", "18923"]
+ENTRYPOINT ["tini", "--", "/usr/local/bin/docker-entrypoint.sh"]
+CMD ["--no-tunnel", "--no-open", "--port", "18923"]

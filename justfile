@@ -17,7 +17,7 @@ down:
     docker compose down
 
 codex:
-    docker compose run --rm -it codex codex
+    docker compose run --rm -it codexapp codex
 
 shell:
-    docker compose run --rm -it codex bash
+    docker compose run --rm -it codexapp bash
