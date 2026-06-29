@@ -2,7 +2,7 @@
 
 FROM ghcr.io/astral-sh/uv:latest AS uv
 
-FROM node:24-trixie-slim AS codexapp-builder
+FROM node:26-trixie-slim AS codexapp-builder
 
 ARG CODEX_MOBILE_REPO=https://github.com/selim13/codex-mobile.git
 ARG CODEX_MOBILE_REF=ru/translate
@@ -28,7 +28,7 @@ RUN git clone --depth 1 --branch "$CODEX_MOBILE_REF" "$CODEX_MOBILE_REPO" . \
     && npm run build:cli \
     && npm pack --pack-destination /tmp
 
-FROM node:24-trixie-slim
+FROM node:26-trixie-slim
 
 ARG IMAGE_CREATED
 ARG IMAGE_REVISION
