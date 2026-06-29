@@ -69,6 +69,7 @@ RUN apt-get update \
         openssh-client \
         p7zip-full \
         pkg-config \
+        pandoc \
         poppler-utils \
         procps \
         python3 \
