@@ -102,11 +102,12 @@ RUN npm ci --omit=dev --prefix /opt/codex-npm \
     && npm cache clean --force
 
 RUN groupmod --new-name codex node \
-    && usermod --login codex --home /home/codex --move-home node \
+    && usermod --login codex --home /home/codex --move-home --shell /bin/bash node \
     && chown -R codex:codex /home/codex
 
 ENV HOME=/home/codex \
     CODEX_HOME=/home/codex/.codex \
+    SHELL=/bin/bash \
     NPM_CONFIG_PREFIX=/home/codex/.npm-global \
     PATH=/home/codex/.npm-global/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
