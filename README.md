@@ -20,6 +20,7 @@ services:
       - "18923:18923"
     volumes:
       - ./codex-home:/home/codex
+      - ./codex-uploads:/tmp/codex-web-uploads
 ```
 
 Use the Codex TUI login flow to populate `auth.json`:
@@ -40,6 +41,9 @@ The native web UI password is created on first start and reused from
 `./codex-home/.codex/codexui-password` on later restarts. To change it, edit that file and restart
 the container. Delete `./codex-home/.codex/webui-auth-sessions.json` as well to force existing
 browsers to sign in again.
+
+The web UI stores uploaded files in `/tmp/codex-web-uploads`; mount it if attachments must survive
+container restarts.
 
 Probably put it behind reverse proxy like traefik with proper TLS termination.
 

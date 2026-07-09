@@ -2,6 +2,7 @@
 .env.*
 !.env.example
 codex-home/
+codex-uploads/
 node_modules/
 .cache/
 *.log

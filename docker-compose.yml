@@ -13,6 +13,7 @@ services:
       - "18923:18923"
     volumes:
       - ./codex-home:/home/codex
+      - ./codex-uploads:/tmp/codex-web-uploads
     environment:
       CODEX_HOME: /home/codex/.codex
       HTTP_PROXY: "${HTTP_PROXY:-}"
