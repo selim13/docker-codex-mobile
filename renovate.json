@@ -2,7 +2,8 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended",
-    "customManagers:dockerfileVersions"
+    "customManagers:dockerfileVersions",
+    "group:all"
   ],
   "customManagers": [
     {
@@ -14,12 +15,6 @@
       "depNameTemplate": "selim13/codex-mobile",
       "packageNameTemplate": "https://github.com/selim13/codex-mobile.git",
       "datasourceTemplate": "git-refs"
-    }
-  ],
-  "packageRules": [
-    {
-      "matchFileNames": ["Dockerfile"],
-      "groupName": "Dockerfile dependencies"
     }
   ]
 }
