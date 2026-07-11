@@ -1,0 +1,25 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "customManagers:dockerfileVersions"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/^Dockerfile$/"],
+      "matchStrings": [
+        "ARG CODEX_MOBILE_REF=(?<currentValue>\\S+)\\s+ARG CODEX_MOBILE_COMMIT=(?<currentDigest>[a-f0-9]{40})"
+      ],
+      "depNameTemplate": "selim13/codex-mobile",
+      "packageNameTemplate": "https://github.com/selim13/codex-mobile.git",
+      "datasourceTemplate": "git-refs"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchFileNames": ["Dockerfile"],
+      "groupName": "Dockerfile dependencies"
+    }
+  ]
+}

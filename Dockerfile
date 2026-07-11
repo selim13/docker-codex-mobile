@@ -6,6 +6,7 @@ FROM node:24-trixie-slim AS codexapp-builder
 
 ARG CODEX_MOBILE_REPO=https://github.com/selim13/codex-mobile.git
 ARG CODEX_MOBILE_REF=ru/translate
+ARG CODEX_MOBILE_COMMIT=e837194c134a8497cb2058fb8ed2e76ba308b2e8
 ARG CODEXUI_DEFAULT_UI_LANGUAGE=ru
 
 ENV CI=true \
@@ -22,7 +23,10 @@ RUN apt-get update \
 
 WORKDIR /tmp/codex-mobile
 
-RUN git clone --depth 1 --branch "$CODEX_MOBILE_REF" "$CODEX_MOBILE_REPO" . \
+RUN git init \
+    && git remote add origin "$CODEX_MOBILE_REPO" \
+    && git fetch --depth 1 origin "$CODEX_MOBILE_COMMIT" \
+    && git checkout --detach FETCH_HEAD \
     && npm install --no-audit --no-fund \
     && npm run build:frontend \
     && npm run build:cli \
@@ -94,11 +98,10 @@ RUN apt-get update \
 COPY --from=uv /uv /uvx /usr/local/bin/
 COPY --from=codexapp-builder /tmp/codexapp-*.tgz /tmp/codexapp.tgz
 COPY --chmod=0755 docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-COPY package.json package-lock.json /opt/codex-npm/
 
-RUN npm ci --omit=dev --prefix /opt/codex-npm \
-    && ln -s /opt/codex-npm/node_modules/.bin/codex /usr/local/bin/codex \
-    && npm install -g /tmp/codexapp.tgz \
+# renovate: datasource=npm depName=@openai/codex
+ARG CODEX_VERSION=0.142.4
+RUN npm install -g "@openai/codex@${CODEX_VERSION}" /tmp/codexapp.tgz \
     && rm -f /tmp/codexapp.tgz \
     && npm cache clean --force
 

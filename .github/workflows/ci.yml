@@ -17,9 +17,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7.0.0
 
-      - name: Validate npm lockfile
-        run: npm ci --omit=dev --dry-run
-
       - name: Validate Compose config
         run: docker compose config
 
