@@ -100,7 +100,7 @@ COPY --from=codexapp-builder /tmp/codexapp-*.tgz /tmp/codexapp.tgz
 COPY --chmod=0755 docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
 # renovate: datasource=npm depName=@openai/codex
-ARG CODEX_VERSION=0.144.5
+ARG CODEX_VERSION=0.145.0
 RUN npm install -g "@openai/codex@${CODEX_VERSION}" /tmp/codexapp.tgz \
     && rm -f /tmp/codexapp.tgz \
     && npm cache clean --force
