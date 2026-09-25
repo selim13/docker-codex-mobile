@@ -96,7 +96,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=uv /uv /uvx /usr/local/bin/
-COPY --from=codexapp-builder /tmp/codexapp-*.tgz /tmp/codexapp.tgz
+COPY --from=codexapp-builder /tmp/*codexapp-*.tgz /tmp/codexapp.tgz
 COPY --chmod=0755 docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
 # renovate: datasource=npm depName=@openai/codex
