@@ -2,7 +2,7 @@
 
 FROM ghcr.io/astral-sh/uv:latest AS uv
 
-FROM node:24-trixie-slim AS codexapp-builder
+FROM node:26-trixie-slim AS codexapp-builder
 
 ARG CODEX_MOBILE_REPO=https://github.com/selim13/codex-mobile.git
 ARG CODEX_MOBILE_REF=ru/translate
@@ -32,7 +32,7 @@ RUN git init \
     && npm run build:cli \
     && npm pack --pack-destination /tmp
 
-FROM node:24-trixie-slim
+FROM node:26-trixie-slim
 
 ARG IMAGE_CREATED
 ARG IMAGE_REVISION
@@ -100,7 +100,7 @@ COPY --from=codexapp-builder /tmp/*codexapp-*.tgz /tmp/codexapp.tgz
 COPY --chmod=0755 docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
 # renovate: datasource=npm depName=@openai/codex
-ARG CODEX_VERSION=0.157.0
+ARG CODEX_VERSION=0.166.0
 RUN npm install -g "@openai/codex@${CODEX_VERSION}" /tmp/codexapp.tgz \
     && rm -f /tmp/codexapp.tgz \
     && npm cache clean --force
